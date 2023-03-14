@@ -67,12 +67,11 @@ $(document).ready(function () {
             $('.playerTbl').append(`<tr id = ${lastVal.substring(0, 2)}_${idVal}>`);
             for (let p2 in data[p]) {
                 let e = data[p][p2];
-                $('.playerTbl').children().last().after(`<td>${e}</td>`)
+                $('.playerTbl').children().last().after().append(`<td>${e}</td>`);
             }
             $('.playerTbl').append('</tr>');
         }
-    });
-    $('tr').css('backgroundColor', 'lightBlue');
+    });   
 })
 
 $(document).ready(function () {
@@ -108,15 +107,12 @@ const doPosDropDown = () => {
         let val = `${String(Positions[p].positionName).toLowerCase()}`;
         $('#position_drop').append(`<option value="${val}" id=pos${Positions[p].id}>${Positions[p].positionName}</option>`);
     };
-    $('#position_drop').children().each(function () {
-        $(this).addClass('unselected');
-    });
 
-    $('select#position_drop.target_p').change(function () {
-        console.log($('select#position_drop.target_p').val());
+    $('select#position_drop.target_p').change(function () {        
         Selected.current.id = 2;
         Selected.current.category = 'positions';
         Selected.current.sname = $('select#position_drop.target_p').val();
+        doFilterByPosition();
     });
 };
 
@@ -125,16 +121,28 @@ const doTeamDropDown = () => {
         let val = String(Teams[p].teamName).toLowerCase();
         $('#team_drop').append(`<option value="${val}" id=tea${Teams[p].id}>${Teams[p].teamName}</option>`);
     }
-    $('#team_drop').children().each(function () {
-        $(this).addClass('unselected');
-    });
-    $('select#team_drop.target_t').change(function () {
-        console.log($('select#team_drop.target_t').val());
+
+    $('select#team_drop.target_t').change(function () {        
         Selected.current.id = 1;
         Selected.current.category = 'teams';
-        Selected.current.sname = $('select#position_drop.target_t').val();
+        Selected.current.sname = $('select#team_drop.target_t').val();
+        doFilterByTeam()
     });
 };
+
+const doFilterByTeam = () => {    
+    let teamMatch = Selected.current.sname;
+    $('.playerTbl tr').each(function () {        
+        String($(this).children('td:nth-child(4)').html()).toLowerCase() !== Selected.current.sname ? $(this).hide() : $(this).show();
+    })
+}
+
+const doFilterByPosition = () => {
+    let positionMatch = Selected.current.sname;
+    $('.playerTbl tr').each(function () {
+        String($(this).children('td:nth-child(5)').html()).toLowerCase() !== Selected.current.sname ? $(this).hide() : $(this).show();
+    })
+}
 
 
 
