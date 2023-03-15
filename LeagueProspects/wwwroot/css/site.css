@@ -43,3 +43,25 @@ tr:nth-child(odd) {
     border-bottom: 1px #35478C solid;
         /*background-color: #FFEDD2;*/
     }
+select{
+    margin-left:5%;
+}
+
+input#addPlayer {
+    width: 140px;
+    height: 35px;
+    margin-left:8%;
+    border-radius: 5%;
+    background-color: #35478C;
+    color: #FFFFFF;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-variant: small-caps;
+    cursor: pointer;
+}
+
+.iGrid{
+    margin-left:12%;
+    display:grid;
+    grid-template-columns:20% 20% 20%;
+    grid-gap:7%;
+}

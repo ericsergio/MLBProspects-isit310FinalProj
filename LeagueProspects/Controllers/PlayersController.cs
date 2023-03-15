@@ -85,6 +85,18 @@ namespace LeagueProspects.Controllers
         {
         }
     }
+
+    // POST api/<PlayerController>
+    /*[HttpPost]
+    public void Post([FromBody] NewPlayer onePlayer)
+    {
+        var context = new ProspectsContext();
+        Player playerTable = new Player();
+
+
+
+    }*/
+
     public class PlayerData
     {
         public int Id { get; set; }

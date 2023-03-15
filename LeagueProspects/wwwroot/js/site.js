@@ -17,6 +17,15 @@ function Players(id, first_name, last_name, team_id, position_id, at_bats, strik
     this.home_runs = home_runs || null;
 }
 
+function NewPlayer(validate, first_name, last_name, team_name, position_name) {
+    this.validate = 0;
+    this.first_name = first_name || null;
+    this.last_name = last_name || null;
+    this.team_name = team_name | null;
+    this.position_name = position_name || null;
+}
+
+
 function Positions(id, positionName) {
     this.id = id;
     this.positionName = positionName;    
@@ -79,7 +88,7 @@ $(document).ready(function () {
         for (p in data) {
             Positions[[data[p].positionName]] = new Positions(data[p].id, data[p].positionName);
         }
-        $('.srchInput').append(`
+        $('.sInput').prepend(`
         <select class = 'target_p' name = "position_dd" id = "position_drop"><option value="Position" id="positionStart" selected="selected">Select Position</option></select>`
         );
         doPosDropDown();
@@ -94,7 +103,7 @@ $(document).ready(function () {
             tname = Object(tname);
             Teams[[tname]] = new Teams(data[p].id, data[p].teamName, data[p].league_id);
         }
-        $('.srchInput').append(`
+        $('.sInput').prepend(`
         <select class = 'target_t' name = "team_dd" id = "team_drop"><option value="Team" id="teamStart" selected="selected">Select Team</option></select>`
         );
         doTeamDropDown();
@@ -144,7 +153,110 @@ const doFilterByPosition = () => {
     })
 }
 
+const doCollectPlayerData = () => {
+    $('body').css('backgroundColor', 'yellow');
+    $('.playerTbl').before(`<div class="addPlayerPrompt"><p class="pdescriptor"> \
+    </p><input type="input" class="userData"></input><input type = "button" id="newPlayerBtn" class="btnlvl1" \
+    onclick="doCollectLevel2()"></input></div>`);
+    NewPlayer.newPlayer = new NewPlayer();
+    NewPlayer.newPlayer.validate = 1;
+    $('.addPlayerPrompt').css({
+        'height': '25%',
+        'width': '40%',
+        'backgroundColor': 'grey'
+    });
+    $('.pdescriptor').text('Please enter the players first name');
+    $('.userData').css({
+        'height': '40px',
+        'width': '140px'
+    });
+    $('#newPlayerBtn').css({
+        'height': '40px',
+        'width': '140px'
+    });
+};
 
+const doCollectLevel2 = () => {
+    //will validate first name with value of 1
+    validate();
+    $('body').css('backgroundColor', '#33FFFF');    
+    NewPlayer.newPlayer.first_name = $('.userData').val();
+    NewPlayer.newPlayer.validate = 2;
+    $('.pdescriptor').text('enter the last name');
+    $('.userData').val('');
+    $('.addPlayerPrompt').append('<p class = "pdescriptor></p> \
+    <input type=input class="userData2"></ input></div>');
+    $('.pdescriptor').text('Please enter the players last name');
+    $('.userData2').css({
+        'height': '40px',
+        'width': '140px'
+    });
+    $('#newPlayerBtn').removeAttr('onclick');
+    $('#newPlayerBtn').attr('onclick', 'doCollectLevel3()');
+};
+
+const doCollectLevel3 = () => {
+    //will validate last name with value of 2
+    validate();
+    NewPlayer.newPlayer.last_name = $('.userData').val();
+    NewPlayer.newPlayer.validate = 3;
+    $('.pdescriptor').text('what team does this player play on?');
+    $('.userData').val('');
+    $('body').css('backgroundColor', '#99FFCC');
+    $('#newPlayerBtn').removeAttr('onclick');
+    $('#newPlayerBtn').attr('onclick', 'doCollectLevel4()');
+}
+
+const doCollectLevel4 = () => {
+    //will validate team name with value of 3
+    validate();
+    NewPlayer.newPlayer.team_name = $('.userData').val();
+    NewPlayer.newPlayer.validate = 4;
+    $('.pdescriptor').text('what position does this player play?');
+    $('.userData').val('');
+    $('body').css('backgroundColor', '#FFB266');
+    $('#newPlayerBtn').removeAttr('onclick');
+    $('#newPlayerBtn').attr('onclick', 'doCollectLevel5()');
+}
+const doCollectLevel5 = () => {
+    //will validate the position name with value of 4 then should be reset back to 0 for the next player to add
+    validate();
+    NewPlayer.newPlayer.position_name = $('.userData').val();
+    NewPlayer.newPlayer.validate = 0;    
+    $('body').css('backgroundColor', '#FFCCE5');    
+    //$('#newPlayerBtn').removeAttr('onclick');
+    //$('#newPlayerBtn').attr('onclick', 'doApiCall()');
+    $('.addPlayerPrompt').remove();
+    alert(
+        `the data collected is as follows:\
+        ${NewPlayer.newPlayer.first_name}\n${NewPlayer.newPlayer.last_name}\n \
+        ${NewPlayer.newPlayer.team_name}\n${NewPlayer.newPlayer.position_name}`
+    );
+    $('body').css('backgroundColor', '#E0E0E0');
+}
+
+const doApiCall = () => {
+
+}
+
+const validate = () => {
+    switch (NewPlayer.newPlayer.validate) {
+        case 1:
+            console.log('validate first name');
+            break;
+        case 2:
+            console.log('validate last name');
+            break;
+        case 3:
+            console.log('validate team name');
+            break;
+        case 4:
+            console.log('validate position name');
+            break;
+        default:
+            console.log('not sure... tbd');
+    }
+}
 
 /*
   static adminDisplayData(query_in:string, idx:number) {

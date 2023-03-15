@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "evXBEMOSsZ06DxVSfhFzmWTtPtQjYej3Q/jFoiqVB4M=",
+  "Hash": "wa/ckipW0hdsV2UlJLzM3EpcDS1oQHxDpd9cX4d6drs=",
   "Source": "LeagueProspects",
   "BasePath": "_content/LeagueProspects",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/ericsergio/Projects/LeagueProspects/LeagueProspects/obj/Debug/net6.0/scopedcss/projectbundle/LeagueProspects.bundle.scp.css"
+    },
+    {
+      "Identity": "/Users/ericsergio/Projects/LeagueProspects/LeagueProspects/wwwroot/assets/baseballCloseUpBackground.jpeg",
+      "SourceId": "LeagueProspects",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/ericsergio/Projects/LeagueProspects/LeagueProspects/wwwroot/",
+      "BasePath": "_content/LeagueProspects",
+      "RelativePath": "assets/baseballCloseUpBackground.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/assets/baseballCloseUpBackground.jpeg"
     },
     {
       "Identity": "/Users/ericsergio/Projects/LeagueProspects/LeagueProspects/wwwroot/css/site.css",

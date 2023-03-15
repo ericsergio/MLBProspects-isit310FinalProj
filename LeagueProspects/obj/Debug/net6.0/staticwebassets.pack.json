@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets/LeagueProspects.bundle.scp.css"
     },
     {
+      "Id": "/Users/ericsergio/Projects/LeagueProspects/LeagueProspects/wwwroot/assets/baseballCloseUpBackground.jpeg",
+      "PackagePath": "staticwebassets/assets/baseballCloseUpBackground.jpeg"
+    },
+    {
       "Id": "/Users/ericsergio/Projects/LeagueProspects/LeagueProspects/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },
