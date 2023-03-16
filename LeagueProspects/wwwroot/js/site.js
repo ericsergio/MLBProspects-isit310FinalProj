@@ -49,12 +49,11 @@ function Selected(id, category, sname) {
 }
 
 Selected.current = new Selected();
-//Positions.current = new Positions();
 
 
 Positions.prototype.getPositionId = function () {
     return this.id;
-}
+};
 
 var tableHeaders = ['ID', 'First', 'Last', 'Team', 'Position', 'AtBats', 'StrikeOuts', 'Rbis', 'BattingAvg', 'HomeRuns'];
 
@@ -67,13 +66,13 @@ function buildTable() {
     ptbl.append('<tr>')
     for (let p in tableHeaders) {
         ptbl.append(`<th>${tableHeaders[p]}</th>`)
-    }
-}
+    };
+};
 buildTable();
 
 $(document).ready(function () {
     let idx = 0;
-    let instance = 'p';        
+    let instance = 'p';
     $.getJSON('api/Players/GetPlayers').done(function (data) {
         for (let p in data) {
             let d = data[p];
@@ -81,7 +80,6 @@ $(document).ready(function () {
             let lastVal = d.last;
             lastVal = String(lastVal);
             idVal = String(idVal);
-            //console.log(`idVal: ${typeof idVal}`)
             Players[[`${lastVal.substring(0, 2)}${idVal}`]] = new Players(d.id, d.first, d.last, d.team,
                 d.pos, d.atBats, d.strikeOuts, d.rbis, d.battingAvg, d.homeRuns)
             $('.playerTbl').append(`<tr id = ${lastVal.substring(0, 2)}_${idVal}>`);
@@ -90,11 +88,9 @@ $(document).ready(function () {
                 $('.playerTbl').children().last().after().append(`<td>${e}</td>`);
             }
             $('.playerTbl').append('</tr>');
-        }
-    });   
-})
-
-
+        };
+    });
+});
 
 $(document).ready(function () {
     $.getJSON('api/Players/GetPositions').done(function (data) {        
@@ -125,7 +121,6 @@ $(document).ready(function () {
 
 const doPosDropDown = () => {
     for (let p in Positions) {
-        console.log(Positions[p])
         let val = `${String(Positions[p].positionName).toLowerCase()}`;
         $('#position_drop').append(`<option value="${val}" id=pos${Positions[p].id}>${Positions[p].positionName}</option>`);
     };
@@ -152,19 +147,19 @@ const doTeamDropDown = () => {
     });
 };
 
-const doFilterByTeam = () => {    
+const doFilterByTeam = () => {
     let teamMatch = Selected.current.sname;
     $('.playerTbl tr').each(function () {
         String($(this).children('td:nth-child(4)').html()).toLowerCase() !== Selected.current.sname ? $(this).hide() : $(this).show();
     });
-}
+};
 
 const doFilterByPosition = () => {
     let positionMatch = Selected.current.sname;
     $('.playerTbl tr').each(function () {
         String($(this).children('td:nth-child(5)').html()).toLowerCase() !== Selected.current.sname ? $(this).hide() : $(this).show();
     });
-}
+};
 
 const doCollectPlayerData = () => {    
     $('.playerTbl').before(
@@ -229,8 +224,8 @@ const doCollectLevel3 = () => {
         for (let i in Teams) {
             if (String(Teams[i].teamName).toLowerCase() === $('.addPlayerPrompt #team_drop').val()) {
                 Selected.current.id = Teams[i].id;
-            }
-        }
+            };
+        };
         doCollectLevel4();
     });    
     $('#newPlayerBtn').removeAttr('onclick');
@@ -251,12 +246,10 @@ const doCollectLevel4 = () => {
         let posString = $('.addPlayerPrompt #position_drop').val();            
         Selected.current.sname = $('.addPlayerPrompt #position_drop').val();
         for (let i in Positions) {
-            console.log(`<><><>${String(Positions[i].positionName).toLowerCase()}`);
             if (String(Positions[i].positionName).toLowerCase() === $('.addPlayerPrompt #position_drop').val()) {
-                console.log(`||||||${Positions[i].getPositionId()}`)
                 NewPlayer.newPlayer.position_id = Positions[i].getPositionId();
-            }
-        }
+            };
+        };
         doApiCall();        
     });
     $('#newPlayerBtn').removeAttr('onclick');
@@ -265,7 +258,7 @@ const doCollectLevel4 = () => {
 }
 const doApiCall = () => {
     //will validate the position name with value of 4 then should be reset back to 0 for the next player to add
-    switchValidate();    
+    switchValidate();
     Validate.doValidate.pointer = 0;
     $('.addPlayerPrompt').remove();
     $.ajax({
@@ -284,7 +277,7 @@ const doApiCall = () => {
             console.log(error);
         }
     });
-}
+};
 
 const switchValidate = () => {
     switch (Validate.doValidate.pointer) {
@@ -302,5 +295,5 @@ const switchValidate = () => {
             break;
         default:
             console.log('not sure... tbd');
-    }
-}
+    };
+};
