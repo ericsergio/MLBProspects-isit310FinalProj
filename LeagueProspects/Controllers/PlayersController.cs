@@ -84,19 +84,36 @@ namespace LeagueProspects.Controllers
         public void Delete(int id)
         {
         }
+        // POST api/<PlayerController>/NewPlayer
+        [HttpPost]
+        [ActionName("NewPlayer")]
+        public void Post([FromBody] NewPlayer onePlayer)
+        {
+            var context = new ProspectsContext();
+            Player newPlayerData = new Player();
+            newPlayerData.FirstName = onePlayer.FirstName;
+            newPlayerData.LastName = onePlayer.LastName;
+            newPlayerData.TeamId = onePlayer.TeamId;
+            newPlayerData.PositionId = onePlayer.PositionId;
+            newPlayerData.AtBats = 0;
+            newPlayerData.StrikeOuts = 0;
+            newPlayerData.Rbis = 0;
+            newPlayerData.BattingAvg = 0;
+            newPlayerData.HomeRuns = 0;
+            try
+            {
+                context.Players.Add(newPlayerData);
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
     }
 
-    // POST api/<PlayerController>
-    /*[HttpPost]
-    public void Post([FromBody] NewPlayer onePlayer)
-    {
-        var context = new ProspectsContext();
-        Player playerTable = new Player();
 
-
-
-    }*/
-
+    
     public class PlayerData
     {
         public int Id { get; set; }
@@ -176,30 +193,12 @@ namespace LeagueProspects.Controllers
             return this.HomeRuns.ToString();
         }
     }
-    /*public class PositionData
+    public class NewPlayer
     {
-        public int Id { get; set; }
-        public string PosName { get; set; }
-
-        public PositionData()
-        {
-
-        }
-
-        public PositionData(int id, string posName)
-        {
-            this.Id = id;
-            this.PosName = posName;
-        }
-
-        public string getId()
-        {
-            return this.Id.ToString();
-        }
-        public string getPosName()
-        {
-            return this.PosName;
-        }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int TeamId { get; set; }
+        public int PositionId { get; set; }
     }
-    */
+
 }
