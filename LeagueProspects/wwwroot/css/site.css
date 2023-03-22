@@ -46,7 +46,7 @@ tr:nth-child(odd) {
     margin-left:2%;
 }
 
-input#addPlayer {
+input#addPlayer, input#backUp {
     width: 140px;
     height: 35px;
     margin-left:8%;
@@ -59,10 +59,10 @@ input#addPlayer {
 }
 
 .iGrid{
-    margin-left:12%;
+    margin:5% 0% 0% 3%;
     display:grid;
-    grid-template-columns:20% 20% 20%;
-    grid-gap:7%;
+    grid-template-columns:15% 15% 15% 15%;
+    grid-gap:3%;
 }
 p {
     font-family: Tahoma, sans-serif;

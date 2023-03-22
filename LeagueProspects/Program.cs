@@ -1,7 +1,14 @@
 ﻿using LeagueProspects.Models;
 using Microsoft.EntityFrameworkCore;
+using LeagueProspects.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.Configure<ProspectDatabaseSettings>(
+    builder.Configuration.GetSection("ProspectDatabase"));
+
+builder.Services.AddSingleton<MongoProspectsServices>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using LeagueProspects.Models;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace LeagueProspects.Controllers
 {
     [Route("api/[controller]/[action]")]
@@ -48,10 +46,10 @@ namespace LeagueProspects.Controllers
         [ActionName("GetPositions")]        
         public IEnumerable<Position>GetPositions()
         {
-            var context = new ProspectsContext();            
+            var context = new ProspectsContext();
             return context.Positions.ToList();
         }
-
+        
         [HttpGet]
         [ActionName("GetTeams")]
         public IEnumerable<Team> GetTeams()
@@ -60,30 +58,7 @@ namespace LeagueProspects.Controllers
             return context.Teams.ToList();
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
         // POST api/<PlayerController>/NewPlayer
         [HttpPost]
         [ActionName("NewPlayer")]
@@ -111,16 +86,14 @@ namespace LeagueProspects.Controllers
             }
         }
     }
-
-
     
     public class PlayerData
     {
         public int Id { get; set; }
-        public string First { get; set; }
-        public string Last { get; set; }
-        public string Team { get; set; }
-        public string Pos { get; set; }
+        public string? First { get; set; }
+        public string? Last { get; set; }
+        public string? Team { get; set; }
+        public string? Pos { get; set; }
         public int AtBats { get; set; }
         public int StrikeOuts { get; set; }
         public int Rbis { get; set; }
@@ -195,8 +168,8 @@ namespace LeagueProspects.Controllers
     }
     public class NewPlayer
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
         public int TeamId { get; set; }
         public int PositionId { get; set; }
     }

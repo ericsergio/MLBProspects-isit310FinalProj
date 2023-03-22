@@ -33,7 +33,7 @@ Validate.doValidate = new Validate(0);
 
 function Positions(id, positionName) {
     this.id = id;
-    this.positionName = positionName;    
+    this.positionName = positionName;
 }
 
 function Teams(id, teamName, league_id) {
@@ -93,7 +93,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $.getJSON('api/Players/GetPositions').done(function (data) {        
+    $.getJSON('api/Players/GetPositions').done(function (data) {
         for (p in data) {
             Positions[[data[p].positionName]] = new Positions(data[p].id, data[p].positionName);
         }
@@ -125,7 +125,7 @@ const doPosDropDown = () => {
         $('#position_drop').append(`<option value="${val}" id=pos${Positions[p].id}>${Positions[p].positionName}</option>`);
     };
 
-    $('select#position_drop.target_p').change(function () {        
+    $('select#position_drop.target_p').change(function () {
         Selected.current.id = 2;
         Selected.current.category = 'positions';
         Selected.current.sname = $('select#position_drop.target_p').val();
@@ -139,11 +139,11 @@ const doTeamDropDown = () => {
         $('#team_drop').append(`<option value="${val}" id=tea${Teams[p].id}>${Teams[p].teamName}</option>`);
     }
 
-    $('select#team_drop.target_t').change(function () {        
+    $('select#team_drop.target_t').change(function () {
         Selected.current.id = 1;
         Selected.current.category = 'teams';
         Selected.current.sname = $('select#team_drop.target_t').val();
-        doFilterByTeam()
+        doFilterByTeam();
     });
 };
 
@@ -161,7 +161,7 @@ const doFilterByPosition = () => {
     });
 };
 
-const doCollectPlayerData = () => {    
+const doCollectPlayerData = () => {
     $('.playerTbl').before(
         `<div class="addPlayerPrompt"><p class="pdescriptor"></p> \
         <input type="input" id="userTxt" class="userData"></input> \
@@ -182,14 +182,14 @@ const doCollectPlayerData = () => {
     $('.pdescriptor').text('Please enter the players first name');
     $('.pdescriptor').css({
         'padding':'2px',
-        'margin': '12px'        
+        'margin': '12px'
     });
     $('.userData').css({
-        'height': '30px',        
+        'height': '30px',
         'margin': '12px'
     });
     $('#newPlayerBtn').css({
-        'height': '30px',        
+        'height': '30px',
         'margin':'12%'
     });
     $('#userTxt').focus();
@@ -198,12 +198,12 @@ const doCollectPlayerData = () => {
 
 const doCollectLevel2 = () => {
     //will validate first name with value of 1
-    switchValidate();    
+    switchValidate();
     NewPlayer.newPlayer.first_name = $('.userData').val();
     Validate.doValidate.pointer = 2;
     $('.pdescriptor').text('enter the last name');
-    $('.userData').val('');    
-    $('.pdescriptor').text('Please enter the players last name');    
+    $('.userData').val('');
+    $('.pdescriptor').text('Please enter the players last name');
     $('#newPlayerBtn').removeAttr('onclick');
     $('#newPlayerBtn').attr('onclick', 'doCollectLevel3()');
     $('#userTxt').focus();
@@ -220,18 +220,18 @@ const doCollectLevel3 = () => {
     $('#newPlayerBtn').remove();
     $('#team_drop').clone().appendTo('.addPlayerPrompt');
     $('.addPlayerPrompt #team_drop').change(function () {
-        Selected.current.sname = $('.addPlayerPrompt #team_drop').val();        
+        Selected.current.sname = $('.addPlayerPrompt #team_drop').val();
         for (let i in Teams) {
             if (String(Teams[i].teamName).toLowerCase() === $('.addPlayerPrompt #team_drop').val()) {
                 Selected.current.id = Teams[i].id;
             };
         };
         doCollectLevel4();
-    });    
+    });
     $('#newPlayerBtn').removeAttr('onclick');
     $('#newPlayerBtn').attr('onclick', `doCollectLevel4(${storeBtnElem})`);
     $('#userTxt').focus();
-}
+};
 
 const doCollectLevel4 = () => {
     //will validate team name with value of 3
@@ -242,20 +242,20 @@ const doCollectLevel4 = () => {
     $('.pdescriptor').text('what position does this player play?');
     $('#position_drop').clone().appendTo('.addPlayerPrompt');
     $('.addPlayerPrompt #team_drop').remove();
-    $('.addPlayerPrompt #position_drop').change(function () {        
-        let posString = $('.addPlayerPrompt #position_drop').val();            
+    $('.addPlayerPrompt #position_drop').change(function () {
+        let posString = $('.addPlayerPrompt #position_drop').val();
         Selected.current.sname = $('.addPlayerPrompt #position_drop').val();
         for (let i in Positions) {
             if (String(Positions[i].positionName).toLowerCase() === $('.addPlayerPrompt #position_drop').val()) {
                 NewPlayer.newPlayer.position_id = Positions[i].getPositionId();
             };
         };
-        doApiCall();        
+        doApiCall();
     });
     $('#newPlayerBtn').removeAttr('onclick');
     $('#newPlayerBtn').attr('onclick', 'doApiCall()');
     $('#userTxt').focus();
-}
+};
 const doApiCall = () => {
     //will validate the position name with value of 4 then should be reset back to 0 for the next player to add
     switchValidate();
@@ -297,3 +297,7 @@ const switchValidate = () => {
             console.log('not sure... tbd');
     };
 };
+
+const doBackUp = () => {
+    $.get("api/")
+}
